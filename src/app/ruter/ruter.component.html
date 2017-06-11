@@ -1,3 +1,11 @@
 <p>
   ruter works!
 </p>
+
+<h1>{{id}}</h1>
+
+<li *ngFor="let time of realTime">
+  
+  {{time.MonitoredVehicleJourney.DestinationName}}
+  {{time.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime | date:'HH:mm'}}
+</li>
