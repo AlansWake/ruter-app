@@ -1,10 +1,23 @@
-<p>
-  ruter works!
-</p>
 
-<h1>{{id}}</h1>
-
-<li *ngFor="let time of realTime">
-  {{time.MonitoredVehicleJourney.DestinationName}}
-  {{time.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime | date:'HH:mm:ss'}}
-</li>
+<md-card class="card">
+  <md-card-header>
+    <md-card-title>{{ruter.name}}</md-card-title>
+    <md-card-subtitle>{{ruter.id}} {{currentTime | date:'HH:mm'}}</md-card-subtitle>
+  </md-card-header>
+  <md-card-content>
+    <div *ngIf="realTime">
+      <md-list dense>
+        <md-list-item *ngFor="let time of realTime">
+          {{dateConvert()}}
+          {{time.MonitoredVehicleJourney.DestinationName}}
+          ({{time.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime | date:'HH:mm'}})
+          {{time.MinutesToDeparture}} min
+        </md-list-item>
+      </md-list>
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button>LIKE</button>
+    <button md-raised-button>SHARE</button>
+  </md-card-actions>
+</md-card>

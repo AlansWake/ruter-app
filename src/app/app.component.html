@@ -1,10 +1,17 @@
-<h1>
-  {{title}}
-</h1>
+<div fxLayout="column" fxLayoutWrap>
 
+  <md-toolbar fxFlex="auto">
+    <span><h1>{{title}}</h1></span>
+  </md-toolbar>
 
-<app-ruter *ngFor="let ruter of ruterIds" [id]="ruter"></app-ruter>
-
-
+  <div fxFlex="auto">
+    <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutWrap fxLayoutGap="2rem">
+      <app-ruter fxFlexWrap *ngFor="let ruter of ruterData" [ruter]="ruter"></app-ruter>
+    </div>
+  </div>
 
   
+
+
+
+</div>

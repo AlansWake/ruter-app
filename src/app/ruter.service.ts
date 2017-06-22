@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { RuterRealTime } from './ruter/ruter.component';
+
 @Injectable()
 export class RuterService {
 
@@ -16,15 +18,15 @@ export class RuterService {
 
   constructor(private http: Http) { }
 
-  getRealTime(id: string): Observable<Object[]> {
+  getRealTime(id: string): Observable<RuterRealTime[]> {
     console.log(this.ruterUrl + 'StopVisit/GetDepartures/' + id);
 
     return this.http.get(this.ruterUrl + 'StopVisit/GetDepartures/' + id, {headers: this.headers})
-                    .map((response: Response) => <Object[]>response.json());
+                    .map(this.extractData);
 
   }
   private extractData(res: Response) {
-    const body = res.json();
+    const body = res.json() as RuterRealTime[];
     return body || { };
   }
 
