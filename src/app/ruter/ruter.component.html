@@ -6,14 +6,22 @@
   </md-card-header>
   <md-card-content>
     <div *ngIf="realTime">
+      
+      
       <md-list dense>
-        <md-list-item *ngFor="let time of realTime">
-          {{dateConvert()}}
-          {{time.MonitoredVehicleJourney.DestinationName}}
-          ({{time.MonitoredVehicleJourney.MonitoredCall.ExpectedArrivalTime | date:'HH:mm'}})
-          {{time.MinutesToDeparture}} min
+        {{perfectTime.Name}}
+        <md-list-item *ngFor="let thing of perfectTime.Directions">
+          {{thing.Id}}
+          <div *ngFor="let x of thing.Lines">
+            <p>{{x.Name}}</p>
+          <div *ngFor="let y of x.Times">
+            {{y.Time}} <br>
+            
+          </div>
+          </div>
         </md-list-item>
       </md-list>
+      
     </div>
   </md-card-content>
   <md-card-actions>

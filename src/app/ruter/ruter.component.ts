@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { RuterService } from '../ruter.service';
+import { RealtimeConvertService } from '../realtime-convert.service';
+
+import { RuterRealTime } from '../ruter-real-time';
+import { PerfectRealTime, Direction, Line } from '../perfect-real-time';
 
 @Component({
   selector: 'app-ruter',
@@ -11,6 +15,8 @@ export class RuterComponent implements OnInit {
 
   realTime: RuterRealTime[];
 
+  perfectTime: PerfectRealTime;
+
   realTimeNumbers: number[];
 
   currentTime = new Date(); // do the same with the ruter date, and subtract, and lastly reformat
@@ -19,7 +25,7 @@ export class RuterComponent implements OnInit {
 
   @Input() ruter: Ruter;
 
-  constructor(private ruterService: RuterService) { }
+  constructor(private ruterService: RuterService, private realtimeConvertService: RealtimeConvertService) { }
 
   ngOnInit(): void {
 
@@ -30,16 +36,31 @@ export class RuterComponent implements OnInit {
   getRealTime() {
 
     this.ruterService.getRealTime(this.ruter.id)
-        .subscribe(response => this.realTime = response.slice(0, 10),
+        .subscribe(response => {
+          let med = response.slice(0, 10);
+          med = this.dateConvert(med);
+          this.perfectTime = this.convertRealTime(med);
+          this.realTime = med;
+        },
         error => this.errorMessage = <any>error);
   }
 
-  dateConvert() {
-    for (let index = 0; index < this.realTime.length; index++) {
-      this.realTime[index].MinutesToDeparture
-      = Math.floor((new Date(this.realTime[index].MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime).getTime()
-      - new Date(this.realTime[index].RecordedAtTime).getTime()) / 60000);
+  dateConvert(obj: RuterRealTime[]) {
+    // console.log('date entered');
+    if (obj) {
+      // console.log('date date run');
+    for (let index = 0; index < obj.length; index++) {
+      obj[index].MinutesToDeparture
+      = Math.floor((new Date(obj[index].MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime).getTime()
+      - new Date(obj[index].RecordedAtTime).getTime()) / 60000);
     }
+    return obj;
+    }
+    
+  }
+
+  convertRealTime(obj: RuterRealTime[]): PerfectRealTime {
+    return this.realtimeConvertService.convertRealTime(obj);
   }
 
 }
@@ -47,18 +68,4 @@ export class RuterComponent implements OnInit {
 class Ruter {
   id: string;
   name: string;
-}
-
-export class RuterRealTime {
-  MinutesToDeparture: number;
-  RecordedAtTime: string;
-  MonitoredVehicleJourney: {
-    PublishedLineName: string;
-    DirectionName: string;
-    MonitoredCall: {
-      DestinationDisplay: string;
-      ExpectedDepartureTime: string;
-      DeparturePlatformName: string;
-    };
-  };
 }

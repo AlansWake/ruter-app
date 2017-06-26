@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdButtonModule, MdGridListModule, MdCardModule, MdToolbarModule, MdListModule } from '@angular/material';
 
 import { RuterService } from './ruter.service';
+import { RealtimeConvertService } from './realtime-convert.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { RuterService } from './ruter.service';
     MdListModule,
     MdButtonModule
   ],
-  providers: [RuterService],
+  providers: [RuterService, RealtimeConvertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
