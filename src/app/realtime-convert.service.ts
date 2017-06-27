@@ -31,7 +31,7 @@ export class RealtimeConvertService {
       res.RecordedAtTime = '';
       console.log('Object length: ' + obj.length);
       for (let i = 0; i < obj.length; i++) {
-        console.log('Object lineName: ' + obj[i].MonitoredVehicleJourney.PublishedLineName);
+        //console.log('Object lineName: ' + obj[i].MonitoredVehicleJourney.PublishedLineName);
         // let direction = e.MonitoredVehicleJourney.DirectionName;
 
         // console.log('For loop?');
@@ -51,7 +51,7 @@ export class RealtimeConvertService {
       for (let i = 0; i < res.Directions.length; i++) {
         if (res.Directions[i].Id === parseInt(obj.MonitoredVehicleJourney.DirectionName, 10)) {
           this.direction(obj, res.Directions[i]);
-          console.log('Direction ids match: ' + res.Directions[i].Id);
+          // console.log('Direction ids match: ' + res.Directions[i].Id);
           return res;
         }
       };
@@ -70,10 +70,13 @@ export class RealtimeConvertService {
     if (res.Id === undefined) { res.Id = parseInt(obj.MonitoredVehicleJourney.DirectionName, 10); }
 
     if (res.Lines) {
+      //console.log("hei");
       for (let i = 0; i < res.Lines.length; i++) {
-        if (res.Lines[i].Id === parseInt(obj.MonitoredVehicleJourney.PublishedLineName, 10)) {
+
+        //console.log('Line: ' + res.Lines[i].Id + ' - new Id: ' + parseInt(obj.MonitoredVehicleJourney.PublishedLineName, 10));
+        if (res.Lines[i].Name === obj.MonitoredVehicleJourney.PublishedLineName) {
           this.line(obj, res.Lines[i]);
-          console.log('Line ids: ' + res.Lines[i].Id);
+          //console.log('Line ids: ' + res.Lines[i].Id);
           return res;
         }
       }

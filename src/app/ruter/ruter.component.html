@@ -8,19 +8,23 @@
     <div *ngIf="realTime">
       
       
-      <md-list dense>
-        {{perfectTime.Name}}
-        <md-list-item *ngFor="let thing of perfectTime.Directions">
-          {{thing.Id}}
-          <div *ngFor="let x of thing.Lines">
-            <p>{{x.Name}}</p>
-          <div *ngFor="let y of x.Times">
-            {{y.Time}} <br>
+     <div style="border-style: solid;" *ngFor="let direction of perfectTime.Directions">
+        
+      
+        <h4>Direction: {{direction.Id}}</h4>
+        <div style="border-style: solid;" *ngFor="let line of direction.Lines">
+
+            <p><mark>Line: {{line.Name}}</mark></p>
+            <div class="container">
+              <div style="background-color: #d5f7d4;" *ngFor="let time of line.Times">
+                <p>{{time.Time}} min -</p>
+                
+              </div>
+            </div>
             
-          </div>
-          </div>
-        </md-list-item>
-      </md-list>
+            
+        </div>
+     </div>
       
     </div>
   </md-card-content>
