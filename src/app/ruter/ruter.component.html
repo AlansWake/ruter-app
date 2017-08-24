@@ -1,35 +1,4 @@
-
-<md-card class="card">
-  <md-card-header>
-    <md-card-title>{{ruter.name}}</md-card-title>
-    <md-card-subtitle>{{ruter.id}} {{currentTime | date:'HH:mm'}}</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>
-    <div *ngIf="realTime">
-      
-      
-     <div style="border-style: solid;" *ngFor="let direction of perfectTime.Directions">
-        
-      
-        <h4>Direction: {{direction.Id}}</h4>
-        <div style="border-style: solid;" *ngFor="let line of direction.Lines">
-
-            <p><mark>Line: {{line.Name}}</mark></p>
-            <div class="container">
-              <div style="background-color: #d5f7d4;" *ngFor="let time of line.Times">
-                <p>{{time.Time}} min -</p>
-                
-              </div>
-            </div>
-            
-            
-        </div>
-     </div>
-      
-    </div>
-  </md-card-content>
-  <md-card-actions>
-    <button md-raised-button>LIKE</button>
-    <button md-raised-button>SHARE</button>
-  </md-card-actions>
-</md-card>
+<app-ruter-item [name]="ruter.name" 
+                [id]="ruter.id" 
+                [recordTime]="currentTime" 
+                [realTime]="perfectTime"></app-ruter-item>

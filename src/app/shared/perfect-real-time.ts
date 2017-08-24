@@ -13,6 +13,7 @@ export class Direction {
 
 export class Line {
   Name: string;
+  SubName: string;
   Id: number;
   Times: { Time: number }[] = [];
 }

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { RuterRealTime } from './ruter-real-time';
+import { RuterRealTime } from '../app/shared/ruter-real-time';
 
 @Injectable()
 export class RuterService {

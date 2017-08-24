@@ -1,17 +1,46 @@
-<div fxLayout="column" fxLayoutWrap>
 
-  <md-toolbar fxFlex="auto">
-    <span><h1>{{title}}</h1></span>
-  </md-toolbar>
 
-  <div fxFlex="auto">
-    <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutWrap fxLayoutGap="2rem">
-      <app-ruter fxFlexWrap *ngFor="let ruter of ruterData" [ruter]="ruter"></app-ruter>
+<md-toolbar color="primary" class="toolbar">
+  <span><h1>{{title}}</h1></span>
+
+  <span class="example-spacer"></span>
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Auth0 - Angular</a>
+
+        <button
+          class="btn btn-primary btn-margin"
+          routerLink="/">
+            Home
+        </button>
+
+        <button
+          class="btn btn-primary btn-margin"
+          *ngIf="!auth.isAuthenticated()"
+          (click)="auth.login()">
+            Log In
+        </button>
+
+        <button
+          class="btn btn-primary btn-margin"
+          *ngIf="auth.isAuthenticated()"
+          (click)="auth.logout()">
+            Log Out
+        </button>
+
+      </div>
     </div>
+  </nav>
+</md-toolbar>
+
+<main class="container">
+  <router-outlet></router-outlet>
+</main>
+
+<div fxFlex="auto">
+  <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutWrap fxLayoutGap="2rem">
+    <app-ruter fxFlexWrap *ngFor="let ruter of ruterData" [ruter]="ruter"></app-ruter>
   </div>
-
-  
-
-
-
 </div>

@@ -5,8 +5,8 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { RuterRealTime } from './ruter-real-time';
-import { PerfectRealTime, Direction, Line } from './perfect-real-time';
+import { RuterRealTime } from '../app/shared/ruter-real-time';
+import { PerfectRealTime, Direction, Line } from '../app/shared/perfect-real-time';
 
 @Injectable()
 export class RealtimeConvertService {
@@ -35,12 +35,38 @@ export class RealtimeConvertService {
         // let direction = e.MonitoredVehicleJourney.DirectionName;
 
         // console.log('For loop?');
-        res = this.realtime(obj[i], res);
+        if (obj[i].MinutesToDeparture < 30) {
+          res = this.realtime(obj[i], res);
+        }
+      }
+
+      res.Directions.sort(this.compareDirections);
+      for (let i = 0; i < res.Directions.length; i++) {
+        res.Directions[i].Lines.sort(this.compareLines);
       }
       this.perfectTime = res;
   
       return res;
     }
+  }
+
+  private compareDirections (a: Direction, b: Direction) {
+    if (a.Id < b.Id) {
+      return -1;
+    }
+    if (a.Id > b.Id) {
+      return 1;
+    }
+    return 0;
+  }
+  private compareLines (a: Line, b: Line) {
+    if (a.Name < b.Name) {
+      return -1;
+    }
+    if (a.Name > b.Name) {
+      return 1;
+    }
+    return 0;
   }
 
   private realtime(obj: RuterRealTime, res: PerfectRealTime): PerfectRealTime {
@@ -68,7 +94,7 @@ export class RealtimeConvertService {
   private direction(obj: RuterRealTime, res: Direction): Direction {
 
     if (res.Id === undefined) { res.Id = parseInt(obj.MonitoredVehicleJourney.DirectionName, 10); }
-
+    if (res.Id === NaN) { return null}
     if (res.Lines) {
       //console.log("hei");
       for (let i = 0; i < res.Lines.length; i++) {
@@ -92,6 +118,7 @@ export class RealtimeConvertService {
     if (res.Name === undefined) { res.Name = obj.MonitoredVehicleJourney.PublishedLineName; }
     if (res.Times === undefined) { res.Times = [];
     }
+    if (res.SubName === undefined) { res.SubName = obj.MonitoredVehicleJourney.MonitoredCall.DestinationDisplay; }
 
     res.Times.push({ Time: obj.MinutesToDeparture });
 

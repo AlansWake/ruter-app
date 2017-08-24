@@ -8,16 +8,23 @@ import { RuterSearchComponent } from './ruter-search/ruter-search.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdGridListModule, MdCardModule, MdToolbarModule, MdListModule } from '@angular/material';
+import { MdButtonModule, MdMenuModule, MdGridListModule,
+         MdCardModule, MdToolbarModule, MdListModule, MdSidenavModule } from '@angular/material';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 
-import { RuterService } from './ruter.service';
-import { RealtimeConvertService } from './realtime-convert.service';
+import { RuterService } from '../services/ruter.service';
+import { RealtimeConvertService } from '../services/realtime-convert.service';
+import { AuthService } from '../services/auth.service';
+import { RuterItemComponent } from './ruter-item/ruter-item.component';
+import { CallbackComponent } from './callback/callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RuterComponent,
-    RuterSearchComponent
+    RuterSearchComponent,
+    RuterItemComponent,
+    CallbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,9 +36,13 @@ import { RealtimeConvertService } from './realtime-convert.service';
     MdCardModule,
     MdToolbarModule,
     MdListModule,
-    MdButtonModule
+    MdButtonModule,
+    MdMenuModule,
+    MdSidenavModule,
+    AppRoutingModule,
+
   ],
-  providers: [RuterService, RealtimeConvertService],
+  providers: [RuterService, RealtimeConvertService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

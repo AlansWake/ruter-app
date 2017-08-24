@@ -1,0 +1,74 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.element {
+    display:inline-block;
+
+}
+.example-card {
+    width: 360px;
+    margin: 10px;
+    padding: 5px;
+}
+
+.example-card .mat-card-content {
+    font-size: 16px;
+}
+.line {
+    display: block;
+    width: 100%;
+    height: 30px;
+    font-size: 20px;
+    color: white;
+    padding-right: 10px;
+}
+
+.line-id {
+    background-color: rgb(236, 112, 12);
+    height: 30px;
+    color: #fff;
+    border-right: 3px solid #eeeef0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 1px 10px;
+    min-width: 35px;
+    float: left;
+}
+.line-name {
+    vertical-align: middle;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    background-color: rgb(236, 112, 12);
+    height: 30px;
+    display: block;
+    width: 100%;
+}
+.line-name-spacer {
+  display: flex;
+  justify-content: space-between;
+}
+.line-name-title {
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.time {
+    box-sizing: border-box;
+    padding: 8px 0 0 10px;
+    margin-bottom: 5px;
+    height: 38px;
+    overflow: hidden;
+}
+
+.time-item {
+    padding-right: 20px;
+    height: 64px;
+    display:inline-block;
+}

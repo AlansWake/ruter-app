@@ -1,2 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+/* Styles go here */
+
+body {
+  background: #f1f1f1;
+  margin: 0;
+}
+
+.title {
+  color: #fff;
+  margin-right: 15px;
+}
+.toolbar.mat-toolbar.mat-primary {
+  background: #334658;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.24);
+}
+
+.toolbar .mat-button-focus-overlay {
+  background: rgba(255,255,255,.12);
+}

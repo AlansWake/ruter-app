@@ -1,0 +1,37 @@
+<md-card class="example-card">
+
+  <md-card-header>
+    <md-card-title><h2>{{name}}</h2></md-card-title>
+    <md-card-subtitle>{{id}} - {{recordTime | date:'HH:mm'}}</md-card-subtitle>
+  </md-card-header>
+  <md-card-content *ngIf="realTime">
+    <div *ngFor="let direction of realTime.Directions">
+
+      <h4 align="center">Direction: {{direction.Id}}</h4>
+
+      <div style="list-style: none;">
+        <li *ngFor="let line of direction.Lines">
+
+          <div class="line">
+            <div class="line-id">{{line.Name}}</div>
+              <div class="line-name">
+                <div class="line-name-spacer">
+                  <div class="line-name-title">{{line.SubName}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="time">
+            <li class="time-item" *ngFor="let time of line.Times">
+              {{time.Time}} min
+
+            </li>
+          </div>
+        </li>
+      </div>
+    </div>
+  </md-card-content>
+  <md-card-footer>
+  </md-card-footer>
+</md-card>

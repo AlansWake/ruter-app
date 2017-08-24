@@ -1,10 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
-import { RuterService } from '../ruter.service';
-import { RealtimeConvertService } from '../realtime-convert.service';
+import { RuterItemComponent } from '../ruter-item/ruter-item.component';
 
-import { RuterRealTime } from '../ruter-real-time';
-import { PerfectRealTime, Direction, Line } from '../perfect-real-time';
+import { RuterService } from '../../services/ruter.service';
+import { RealtimeConvertService } from '../../services/realtime-convert.service';
+
+import { RuterRealTime } from '../shared/ruter-real-time';
+import { PerfectRealTime, Direction, Line } from '../shared/perfect-real-time';
+import { OriginalRuterData } from '../shared/original-ruter-data';
 
 @Component({
   selector: 'app-ruter',
@@ -28,7 +32,13 @@ export class RuterComponent implements OnInit {
   constructor(private ruterService: RuterService, private realtimeConvertService: RealtimeConvertService) { }
 
   ngOnInit(): void {
-
+/*
+    let timer = Observable.timer(0,60000);
+    timer.subscribe(t=> {
+        this.currentTime = new Date();
+        this.getRealTime();
+    });*/
+    this.currentTime = new Date();
     this.getRealTime();
 
   }
@@ -37,7 +47,7 @@ export class RuterComponent implements OnInit {
 
     this.ruterService.getRealTime(this.ruter.id)
         .subscribe(response => {
-          let med = response.slice(0, 10);
+          let med = response;
           med = this.dateConvert(med);
           this.perfectTime = this.convertRealTime(med);
           this.realTime = med;
@@ -56,7 +66,7 @@ export class RuterComponent implements OnInit {
     }
     return obj;
     }
-    
+
   }
 
   convertRealTime(obj: RuterRealTime[]): PerfectRealTime {
