@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RuterComponent } from './ruter/ruter.component';
+import { ProfileComponent } from './profile/profile.component';
 import { AuthService } from '../services/auth.service';
 
 @Component({

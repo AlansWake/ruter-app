@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http, RequestOptions } from '@angular/http';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
 import { AppComponent } from './app.component';
 import { RuterComponent } from './ruter/ruter.component';
 import { RuterSearchComponent } from './ruter-search/ruter-search.component';
@@ -17,6 +19,13 @@ import { RealtimeConvertService } from '../services/realtime-convert.service';
 import { AuthService } from '../services/auth.service';
 import { RuterItemComponent } from './ruter-item/ruter-item.component';
 import { CallbackComponent } from './callback/callback.component';
+import { ProfileComponent } from './profile/profile.component';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    tokenGetter: (() => localStorage.getItem('access_token'))
+  }), http, options);
+}
 
 @NgModule({
   declarations: [
@@ -25,6 +34,7 @@ import { CallbackComponent } from './callback/callback.component';
     RuterSearchComponent,
     RuterItemComponent,
     CallbackComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +52,16 @@ import { CallbackComponent } from './callback/callback.component';
     AppRoutingModule,
 
   ],
-  providers: [RuterService, RealtimeConvertService, AuthService],
+  providers: [
+    RuterService,
+    RealtimeConvertService,
+    AuthService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
